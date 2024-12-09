@@ -2,6 +2,20 @@ import streamlit as st
 import pandas as pd
 import os
 import datetime
+from PIL import Image
+import base64
+from io import BytesIO
+
+
+
+# Display the image
+# Open and resize the image
+image = Image.open("SSA_Logo.jpg")
+resized_image = image.resize((250, 90)) # Resize to 200x200 pixels
+# Display the resized image
+st.image(resized_image)
+
+
 
 # Function to load data from CSV or create new DataFrame
 #Here , we check if the CSV files are there or not , if not there , we can creet new and save it locally
@@ -31,7 +45,7 @@ def load_data():
         project_list = pd.DataFrame({
             'Project Name': ['Project A', 'Project B', 'Project C', 'Project D', 'Project E'],
             'Description': ['Analysis', 'Development', 'Testing', 'Reporting', 'Design'],
-            'WeekEnd Date': ['2024-12-02', '2024-11-29', '2024-11-28', '2024-12-03', '2024-12-04'],
+            'Start Date': ['2024-12-02', '2024-11-29', '2024-11-28', '2024-12-03', '2024-12-04'],
             'Expected to Complete(Weeks)': [4, 6, 8, 3, 5],
             'Internal/External': ['Internal', 'External', 'Internal', 'External', 'Internal'],
             'Status': ['Active', 'Completed', 'On Hold', 'Active', 'Active']
@@ -79,7 +93,7 @@ def add_new_project(project_name, description, start_date, expected_completion, 
     new_project = {
         'Project Name': project_name,
         'Description': description,
-        'WeekEnd Date': start_date,
+        'Start Date': start_date,
         'Expected to Complete(Weeks)': expected_completion,
         'Internal/External': internal_or_external,
         'Status': status
@@ -219,7 +233,7 @@ elif option == "Utilization Analysis":
         st.header("Select Option")
 
         # Main options select box
-        main_option = st.selectbox("Choose an Option", ["Employee Work", "Filter Options"])
+        main_option = st.selectbox("Choose an Option", ["Employee Work", "Filter Options","Actual Vs Estimated"])
 
     # Load main table data
     #From the main tbale we will do all the analysis , okay
@@ -295,3 +309,28 @@ elif option == "Utilization Analysis":
 
         # Display filtered data in a table
         st.dataframe(filtered_data, use_container_width=True)
+    ###############
+    elif main_option == "Actual Vs Estimated":
+        #Check Box
+        filter_by_Avg_Employee_work = st.sidebar.checkbox("Employee Avg Work Details")
+        filter_by_project_resource = st.sidebar.checkbox("Project Resource Deatils")
+        if filter_by_Avg_Employee_work :
+            option_1 = st.selectbox("Choose an Option", ["Employee Avg Work Deatils", "Employeee Work Details"])
+            if option_1 == "Employeee Work Details":
+                #From the main tbale we will do all the analysis , okay
+                filtered_data = main_table_data()
+                temp_filter  = filtered_data[["Employee Name","Time(in hours)","WeekEnd Date"]]
+                st.dataframe(temp_filter) 
+            else:    
+                # Group by Employee Name and calculate the average work
+                avg_work = filtered_data.groupby("Employee Name")["Time(in hours)"].mean()
+                st.dataframe(avg_work)
+
+        ##Print the Project Resource Table
+        if filter_by_project_resource:
+            st.subheader("Project Resource Table:")
+            st.dataframe(project_resource_table)    
+
+
+
+
