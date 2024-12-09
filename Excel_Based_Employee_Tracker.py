@@ -15,6 +15,8 @@ resized_image = image.resize((250, 90)) # Resize to 200x200 pixels
 # Display the resized image
 st.image(resized_image)
 
+import os
+st.write(os.listdir())
 
 
 # Function to load data from CSV or create new DataFrame
