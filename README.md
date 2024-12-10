@@ -4,6 +4,18 @@
 
 
 
+
+## Installation
+
+pip install -r requriments.txt
+
+```bash
+  pandas
+  streamlit
+  pillow
+```
+    
+
 ## Deployment
 
 To deploy this project run
