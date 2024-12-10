@@ -3,8 +3,6 @@ import pandas as pd
 import os
 import datetime
 from PIL import Image
-import base64
-from io import BytesIO
 
 
 
@@ -17,20 +15,14 @@ st.image(resized_image)
 
 # import os
 # st.write(os.listdir())
-
-
-
-
-# Get the current working directory
-current_directory = os.getcwd()
-
-# List the files in the current directory
-files_in_directory = os.listdir(current_directory)
-
-# Display the directory and files in Streamlit
-st.write(f"Current Directory: {current_directory}")
-st.write("Files in Directory:")
-st.write(files_in_directory)
+# # Get the current working directory
+# current_directory = os.getcwd()
+# # List the files in the current directory
+# files_in_directory = os.listdir(current_directory)
+# # Display the directory and files in Streamlit
+# st.write(f"Current Directory: {current_directory}")
+# st.write("Files in Directory:")
+# st.write(files_in_directory)
 
 
 
