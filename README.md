@@ -12,7 +12,8 @@ pip install -r requriments.txt
 ```bash
   pandas
   streamlit
-  pillow
+  Pillow
+
 ```
     
 
