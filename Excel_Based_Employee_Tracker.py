@@ -326,13 +326,13 @@ elif option == "Utilization Analysis":
         if filter_by_Avg_Employee_work :
             option_1 = st.selectbox("Choose an Option", ["Employee Avg Work Deatils", "Employeee Work Details"])
             if option_1 == "Employeee Work Details":
-                st.header("Employee  Work Details")   
+                st.subheader("Employee  Work Details")   
                 #From the main tbale we will do all the analysis , okay
                 filtered_data = main_table_data()
                 temp_filter  = filtered_data[["Employee Name","Time(in hours)","WeekEnd Date"]]
                 st.dataframe(temp_filter) 
             else:
-                st.header("Employee Avg Work Details")    
+                st.subheader("Employee Avg Work Details")    
                 # Group by Employee Name and calculate the average work
                 avg_work = filtered_data.groupby("Employee Name")["Time(in hours)"].mean()
                 st.dataframe(avg_work)
